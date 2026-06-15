@@ -1,0 +1,4 @@
+# OmniBenchmark Module Configuration
+
+entrypoints:
+  scanorama: scanorama.py
