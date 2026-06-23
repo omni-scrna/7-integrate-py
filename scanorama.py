@@ -3,6 +3,7 @@
 # the installed 'scanorama' package with this file (scanorama.py).
 import sys as _sys
 import os as _os
+import argparse
 _this_dir = _os.path.dirname(_os.path.abspath(__file__))
 _sys.path = [p for p in _sys.path if _os.path.abspath(p) != _this_dir and p != ""]
 
