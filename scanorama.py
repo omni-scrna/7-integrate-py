@@ -39,11 +39,11 @@ def parse_args():
     # src/common/cli injects the shared contract (base args + the
     # `INTG8` stage I/O from common/schema). This module's method params are
     # hand-rolled below, so the whole CLI stays visible here.
-    p = argparse.ArgumentParser(description="INTG8 module (scanpy-backed)")
+    p = argparse.ArgumentParser(description="INTG8 module (scanorama)")
     cli.add_base_args(p)               # --output_dir, --name
-    cli.add_stage_args(p, "INTG8")  # --normalized_selected_h5  
+    cli.add_stage_args(p, "INTG8")  # --normalized_selected_h5
     p.add_argument("--knn", type=int, required=True, help="Number of KNNs")
-    p.add_argument("--sigma", type=int, required=True, help="sigma parameter")
+    p.add_argument("--sigma", type=float, required=True, help="sigma parameter")
     return p.parse_args()
 
 
