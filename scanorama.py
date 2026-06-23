@@ -31,7 +31,7 @@ import polars as pl
 import scanorama as scanorama_lib
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-from cli import build_scanorama_parser  # noqa: E402
+from common import cli
 from writers import Embedding, write_embeddings  # noqa: E402
 
 
