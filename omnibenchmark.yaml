@@ -2,3 +2,17 @@
 
 entrypoints:
   scanorama: scanorama.py
+
+
+# common code
+templates:
+  repo: https://github.com/omni-scrna/boilerplate
+  ref: main
+  lang: python
+
+# benchmark(s) this module works with
+benchmarks:
+  - name: split-stages
+    repo: https://github.com/omni-scrna/split-stages-plan
+    plan: benchmark_conda.yaml
+    ref: new-stage-naming

@@ -3,6 +3,7 @@
 # the installed 'scanorama' package with this file (scanorama.py).
 import sys as _sys
 import os as _os
+import argparse
 _this_dir = _os.path.dirname(_os.path.abspath(__file__))
 _sys.path = [p for p in _sys.path if _os.path.abspath(p) != _this_dir and p != ""]
 
@@ -30,12 +31,24 @@ import polars as pl
 import scanorama as scanorama_lib
 
 sys.path.insert(0, str(Path(__file__).parent / "src"))
-from cli import build_scanorama_parser  # noqa: E402
+from common import cli
 from writers import Embedding, write_embeddings  # noqa: E402
 
 
+def parse_args():
+    # src/common/cli injects the shared contract (base args + the
+    # `INTG8` stage I/O from common/schema). This module's method params are
+    # hand-rolled below, so the whole CLI stays visible here.
+    p = argparse.ArgumentParser(description="INTG8 module (scanorama)")
+    cli.add_base_args(p)               # --output_dir, --name
+    cli.add_stage_args(p, "INTG8")  # --normalized_selected_h5
+    p.add_argument("--knn", type=int, required=True, help="Number of KNNs")
+    p.add_argument("--sigma", type=float, required=True, help="sigma parameter")
+    return p.parse_args()
+
+
 def main() -> None:
-    args = build_scanorama_parser().parse_args()
+    args = parse_args()
     print(f"Full command: {' '.join(sys.argv)}")
     for k in ("output_dir", "name", "pcas_tsv", "rawdata_h5ad", "properties_info",
               "knn", "sigma"):
