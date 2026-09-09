@@ -9,7 +9,7 @@ _sys.path = [p for p in _sys.path if _os.path.abspath(p) != _this_dir and p != "
 
 """Scanorama integration module for omnibenchmark.
 
-Reads uncorrected PCA embeddings (pcas.tsv) and batch labels from the obs
+Reads uncorrected embeddings (embedding.tsv) and batch labels from the obs
 group of rawdata.h5ad, runs Scanorama in PCA space, and writes corrected
 embeddings in the same TSV layout as the input.
 
@@ -50,7 +50,7 @@ def parse_args():
 def main() -> None:
     args = parse_args()
     print(f"Full command: {' '.join(sys.argv)}")
-    for k in ("output_dir", "name", "pcas_tsv", "rawdata_h5ad", "properties_info",
+    for k in ("output_dir", "name", "embedding_tsv", "rawdata_h5ad", "properties_info",
               "knn", "sigma"):
         print(f"  {k}: {getattr(args, k)}")
 
@@ -65,8 +65,8 @@ def main() -> None:
         raise ValueError("batch_var is required in properties.info for integration")
     print(f"  batch_variable (from properties.info): {batch_var}")
 
-    # read PCA embeddings
-    df = pl.read_csv(args.pcas_tsv, separator="\t")
+    # read embeddings
+    df = pl.read_csv(args.embedding_tsv, separator="\t")
     row_ids = df["cell_id"].to_list()
     matrix = df.drop("cell_id").to_numpy().astype(np.float64)
     print(f"  embedding (cells x dims): {matrix.shape}")
