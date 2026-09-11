@@ -81,8 +81,7 @@ def _add_args(parser: argparse.ArgumentParser, args: list[dict]) -> argparse.Arg
     for arg in args:
         parser.add_argument(
             arg["flag"],
-            required=not arg.get("optional", False),
-            default=arg.get("default", None),
+            required=True,
             dest=arg.get("dest", _default_dest(arg["flag"])),
             type=_TYPES.get(arg["type"], str),
             choices=arg.get("choices"),  # None -> unconstrained
